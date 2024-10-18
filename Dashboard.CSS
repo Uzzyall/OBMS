@@ -1,0 +1,50 @@
+/* admin-style.css */
+
+/* Adjust the size of admin image */
+img.rounded-circle {
+    object-fit: cover;
+}
+
+/* Button Hover Effects */
+.btn-primary:hover {
+    background-color: #135b9c;
+    border-color: #135b9c;
+}
+
+.btn-success:hover {
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+
+.btn-warning:hover {
+    background-color: #d39e00;
+    border-color: #c69500;
+}
+
+.btn-info:hover {
+    background-color: #0dcaf0;
+    border-color: #0abdc9;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Footer Link Hover */
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    /* Center the admin image and name on smaller screens */
+    .text-center {
+        text-align: center !important;
+    }
+}
