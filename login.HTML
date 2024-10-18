@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBMS - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH/PRv8Rw+2E6D8bZ7lu4nKZJz69T1+M3UsPoYV+kJUVB3Aj2u/wJepd1Ylj3+Tr2+frwKYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section (Same as index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">OBMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sell_books.html">Sell Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_us.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-cart-plus"></i></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center ms-3">
+                        <img src="image/cart.png" alt="Cart" width="20">
+                        <span id="cart-count" class="ms-1">0</span> Items | 
+                        <span id="total-price" class="ms-1">NPR 0.00</span>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a href="login.html" class="btn btn-outline-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4 text-center">Login</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form id="loginForm">
+                        <!-- Email ID -->
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email ID</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <hr>
+                        <p class="text-center">Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register Here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form id="registerForm">
+            <div class="modal-header">
+              <h5 class="modal-title" id="registerModalLabel">Register</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                  <!-- Photo -->
+                  <div class="col-md-6 mb-3">
+                      <label for="registerPhoto" class="form-label">Your Photo *</label>
+                      <input class="form-control" type="file" id="registerPhoto" accept="image/*" required>
+                  </div>
+                  <!-- Citizenship Front Photo -->
+                  <div class="col-md-6 mb-3">
+                      <label for="citizenshipFront" class="form-label">Citizenship Front Photo *</label>
+                      <input class="form-control" type="file" id="citizenshipFront" accept="image/*" required>
+                  </div>
+                  <!-- Citizenship Back Photo -->
+                  <div class="col-md-6 mb-3">
+                      <label for="citizenshipBack" class="form-label">Citizenship Back Photo *</label>
+                      <input class="form-control" type="file" id="citizenshipBack" accept="image/*" required>
+                  </div>
+                  <!-- First Name -->
+                  <div class="col-md-6 mb-3">
+                      <label for="firstName" class="form-label">First Name *</label>
+                      <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                  </div>
+                  <!-- Middle Name -->
+                  <div class="col-md-6 mb-3">
+                      <label for="middleName" class="form-label">Middle Name</label>
+                      <input type="text" class="form-control" id="middleName" placeholder="Enter your middle name">
+                  </div>
+                  <!-- Last Name -->
+                  <div class="col-md-6 mb-3">
+                      <label for="lastName" class="form-label">Last Name *</label>
+                      <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                  </div>
+                  <!-- Email ID -->
+                  <div class="col-md-6 mb-3">
+                      <label for="registerEmail" class="form-label">Email ID *</label>
+                      <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email" required>
+                  </div>
+                  <!-- Password -->
+                  <div class="col-md-6 mb-3">
+                      <label for="registerPassword" class="form-label">Password *</label>
+                      <input type="password" class="form-control" id="registerPassword" placeholder="Enter your password" required>
+                  </div>
+                  <!-- Confirm Password -->
+                  <div class="col-md-6 mb-3">
+                      <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                  </div>
+                  <!-- Address -->
+                  <div class="col-md-12 mb-3">
+                      <label for="address" class="form-label">Address *</label>
+                      <textarea class="form-control" id="address" rows="2" placeholder="Enter your address" required></textarea>
+                  </div>
+                  <!-- Phone Number -->
+                  <div class="col-md-6 mb-3">
+                      <label for="phoneNumber" class="form-label">Phone Number *</label>
+                      <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+                      <small class="form-text text-muted">Format: 98********</small>
+                  </div>
+                  <!-- Citizenship Number -->
+                  <div class="col-md-6 mb-3">
+                      <label for="citizenshipNumber" class="form-label">Citizenship Number *</label>
+                      <input type="text" class="form-control" id="citizenshipNumber" placeholder="Enter your citizenship number" required>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Register</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Success!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            You have successfully logged in!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Success Modal -->
+    <div class="modal fade" id="registrationSuccessModal" tabindex="-1" aria-labelledby="registrationSuccessModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrationSuccessModalLabel">Registration Successful!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Your account has been created successfully! You can now log in.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Login Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section (Same as index.html) -->
+    <footer class="bg-primary text-white py-4">
+        <div class="container text-center">
+            <p>OBMS - Old Book Management System. Buy and sell used books easily.</p>
+            <div class="d-flex justify-content-center">
+                <a href="https://www.instagram.com/uzzyall/" target="_blank" class="text-white me-3">
+                    <img src="image/insta_logo.jpeg" alt="Instagram Logo" width="20"> Instagram
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100026353981986" target="_blank" class="text-white">
+                    <img src="image/Facebook_logo.png" alt="Facebook Logo" width="20"> Facebook
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome JS (optional, for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-Fo3rlrZj/k7ujTnH/PRv8Rw+2E6D8bZ7lu4nKZJz69T1+M3UsPoYV+kJUVB3Aj2u/wJepd1Ylj3+Tr2+frwKYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <script>
+        // JavaScript for Login and Registration
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle Login Form Submission
+            const loginForm = document.getElementById('loginForm');
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!email || !password) {
+                    alert('Please enter both email and password.');
+                    return;
+                }
+
+                // Since there's no backend, we'll simulate login success
+                // Reset the form
+                loginForm.reset();
+
+                // Hide the login modal if any
+                // Show success modal
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+
+            // Handle Registration Form Submission
+            const registerForm = document.getElementById('registerForm');
+            registerForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const photo = document.getElementById('registerPhoto').files[0];
+                const firstName = document.getElementById('firstName').value.trim();
+                const middleName = document.getElementById('middleName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value.trim();
+                const confirmPassword = document.getElementById('confirmPassword').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const phoneNumber = document.getElementById('phoneNumber').value.trim();
+                const citizenshipNumber = document.getElementById('citizenshipNumber').value.trim();
+                const citizenshipFront = document.getElementById('citizenshipFront').files[0];
+                const citizenshipBack = document.getElementById('citizenshipBack').files[0];
+
+                // Basic Validation
+                if (!photo || !firstName || !lastName || !email || !password || !confirmPassword || !address || !phoneNumber || !citizenshipNumber || !citizenshipFront || !citizenshipBack) {
+                    alert('Please fill in all the required fields.');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+
+                // Additional validation can be added here (e.g., email format, phone number format)
+
+                // Since there's no backend, we'll simulate registration success
+                // Reset the form
+                registerForm.reset();
+
+                // Hide the registration modal
+                const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                registerModal.hide();
+
+                // Show registration success modal
+                const registrationSuccessModal = new bootstrap.Modal(document.getElementById('registrationSuccessModal'));
+                registrationSuccessModal.show();
+            });
+        });
+    </script>
+</body>
+</html>

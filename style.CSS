@@ -1,0 +1,50 @@
+/* style.css */
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Corrected typo */
+}
+
+/* Custom Styling */
+
+/* Buy Button Container */
+.buy-button-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+/* Show Buy Button if there are items in the cart */
+.buy-button-container.show {
+    display: block;
+}
+
+/* Book Card Hover Effect */
+.book-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Developer Image Styling */
+.developer-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* Footer Link Hover */
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Disabled Button Styling */
+.disabled-button {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Additional custom styles can be added here */

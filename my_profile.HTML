@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBMS - My Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH/PRv8Rw+2E6D8bZ7lu4nKZJz69T1+M3UsPoYV+kJUVB3Aj2u/wJepd1Ylj3+Tr2+frwKYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom Styles */
+
+        /* Profile Image Styling */
+        .profile-img-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #0d6efd;
+        }
+
+        .verified-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 50%;
+            padding: 5px;
+            border: 2px solid #0d6efd;
+        }
+
+        .verified-icon i {
+            color: #0d6efd;
+        }
+
+        /* Disabled Button Styling */
+        .disabled-button {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Modal Image Preview */
+        .img-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Table Styling */
+        .history-table th, .history-table td {
+            vertical-align: middle;
+        }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .history-table thead {
+                display: none;
+            }
+
+            .history-table, .history-table tbody, .history-table tr, .history-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .history-table tr {
+                margin-bottom: 15px;
+            }
+
+            .history-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            .history-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section (Same as index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">OBMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sell_books.html">Sell Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_us.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-cart-plus"></i></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center ms-3">
+                        <img src="image/cart.png" alt="Cart" width="20">
+                        <span id="cart-count" class="ms-1">0</span> Items | 
+                        <span id="total-price" class="ms-1">NPR 0.00</span>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a href="login.html" class="btn btn-outline-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4 text-center">My Profile</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card p-4 mb-4">
+                        <div class="profile-img-container">
+                            <img src="image/adminimage.jpg" alt="Profile Image" id="profileImage">
+                            <div class="verified-icon" id="verificationIcon">
+                                <!-- Icon will be inserted via JavaScript -->
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4 id="userName">Subham Sharma</h4>
+                            <p><strong>Email:</strong> <span id="userEmail">subham@example.com</span></p>
+                            <p><strong>Address:</strong> <span id="userAddress">123 Main Street, Kathmandu, Nepal</span></p>
+                            <p><strong>Phone Number:</strong> <span id="userPhone">+977-1234567890</span></p>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit Account</button>
+                            <button class="btn btn-secondary" id="manageDocumentsBtn">Manage Documents</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete Account</button>
+                        </div>
+                    </div>
+
+                    <!-- Buying/Selling History Table -->
+                    <div class="card p-4">
+                        <h4 class="mb-3">Buying/Selling History</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped history-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SI No</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Order Number</th>
+                                        <th scope="col">Transaction Type</th>
+                                        <th scope="col">Invoice Number</th>
+                                        <th scope="col">Date and Time</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody">
+                                    <!-- Rows will be populated via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End of Buying/Selling History Table -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manage Documents Modal -->
+    <div class="modal fade" id="manageDocumentsModal" tabindex="-1" aria-labelledby="manageDocumentsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form id="documentsForm">
+            <div class="modal-header">
+              <h5 class="modal-title" id="manageDocumentsModalLabel">Manage Documents</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Citizenship Front Photo -->
+                    <div class="col-md-6 mb-3">
+                        <label for="citizenshipFrontDoc" class="form-label">Citizenship Front Photo</label>
+                        <input class="form-control" type="file" id="citizenshipFrontDoc" accept="image/*" required>
+                        <img src="images/default_citizenship_front.jpg" alt="Citizenship Front" class="img-preview" id="citizenshipFrontPreview">
+                    </div>
+                    <!-- Citizenship Back Photo -->
+                    <div class="col-md-6 mb-3">
+                        <label for="citizenshipBackDoc" class="form-label">Citizenship Back Photo</label>
+                        <input class="form-control" type="file" id="citizenshipBackDoc" accept="image/*" required>
+                        <img src="images/default_citizenship_back.jpg" alt="Citizenship Back" class="img-preview" id="citizenshipBackPreview">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Update Documents</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Account Modal -->
+    <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form id="editAccountForm">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editAccountModalLabel">Edit Account</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- First Name -->
+                    <div class="col-md-4 mb-3">
+                        <label for="editFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="editFirstName" required>
+                    </div>
+                    <!-- Middle Name -->
+                    <div class="col-md-4 mb-3">
+                        <label for="editMiddleName" class="form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="editMiddleName">
+                    </div>
+                    <!-- Last Name -->
+                    <div class="col-md-4 mb-3">
+                        <label for="editLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName" required>
+                    </div>
+                    <!-- Address -->
+                    <div class="col-md-12 mb-3">
+                        <label for="editAddress" class="form-label">Address</label>
+                        <textarea class="form-control" id="editAddress" rows="2" required></textarea>
+                    </div>
+                    <!-- Phone Number -->
+                    <div class="col-md-6 mb-3">
+                        <label for="editPhoneNumber" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="editPhoneNumber" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+                        <small class="form-text text-muted">Format: 1234567890</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Save Changes</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="deleteAccountModalLabel">Delete Account</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section (Same as index.html) -->
+    <footer class="bg-primary text-white py-4">
+        <div class="container text-center">
+            <p>OBMS - Old Book Management System. Buy and sell used books easily.</p>
+            <div class="d-flex justify-content-center">
+                <a href="https://www.instagram.com/uzzyall/" target="_blank" class="text-white me-3">
+                    <img src="image/insta_logo.jpeg" alt="Instagram Logo" width="20"> Instagram
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100026353981986" target="_blank" class="text-white">
+                    <img src="image/Facebook_logo.png" alt="Facebook Logo" width="20"> Facebook
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome JS (optional, for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-Fo3rlrZj/k7ujTnH/PRv8Rw+2E6D8bZ7lu4nKZJz69T1+M3UsPoYV+kJUVB3Aj2u/wJepd1Ylj3+Tr2+frwKYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <script>
+        // JavaScript for My Profile Page
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Simulated User Data
+            let user = {
+                profileImage: 'images/default_profile.jpg',
+                isVerified: false, // Change to true to simulate verification
+                firstName: 'Subham',
+                middleName: 'K.',
+                lastName: 'Sharma',
+                email: 'subham@example.com',
+                address: '123 Main Street, Kathmandu, Nepal',
+                phoneNumber: '1234567890',
+                citizenshipFront: 'images/default_citizenship_front.jpg',
+                citizenshipBack: 'images/default_citizenship_back.jpg'
+            };
+
+            // Sample Buying/Selling History Data
+            const transactionHistory = [
+                {
+                    siNo: 1,
+                    productName: 'Rich Dad Poor Dad',
+                    orderNumber: 'ORD123456',
+                    transactionType: 'Buying',
+                    invoiceNumber: 'INV654321',
+                    dateTime: '2024-04-10 14:30',
+                    status: 'Paid'
+                },
+                {
+                    siNo: 2,
+                    productName: 'The Alchemist',
+                    orderNumber: 'ORD123457',
+                    transactionType: 'Selling',
+                    invoiceNumber: 'INV654322',
+                    dateTime: '2024-04-12 09:15',
+                    status: 'Confirmed'
+                },
+                {
+                    siNo: 3,
+                    productName: 'Atomic Habits',
+                    orderNumber: 'ORD123458',
+                    transactionType: 'Buying',
+                    invoiceNumber: 'INV654323',
+                    dateTime: '2024-04-15 16:45',
+                    status: 'Paid'
+                },
+                {
+                    siNo: 4,
+                    productName: 'To Kill a Mockingbird',
+                    orderNumber: 'ORD123459',
+                    transactionType: 'Selling',
+                    invoiceNumber: 'INV654324',
+                    dateTime: '2024-04-18 11:20',
+                    status: 'Confirmed'
+                }
+                // Add more transactions as needed
+            ];
+
+            // Initialize Profile Data
+            function initializeProfile() {
+                document.getElementById('profileImage').src = user.profileImage;
+                document.getElementById('userName').innerText = `${user.firstName} ${user.middleName} ${user.lastName}`;
+                document.getElementById('userEmail').innerText = user.email;
+                document.getElementById('userAddress').innerText = user.address;
+                document.getElementById('userPhone').innerText = `+977-${user.phoneNumber}`;
+
+                // Set Verification Icon
+                const verificationIcon = document.getElementById('verificationIcon');
+                if (user.isVerified) {
+                    verificationIcon.innerHTML = '<i class="fa-solid fa-circle-check text-success" title="Verified"></i>';
+                } else {
+                    verificationIcon.innerHTML = '<i class="fa-solid fa-circle-xmark text-danger" title="Non-Verified"></i>';
+                }
+
+                // Disable Manage Documents if verified
+                if (user.isVerified) {
+                    document.getElementById('manageDocumentsBtn').classList.add('disabled-button');
+                    document.getElementById('manageDocumentsBtn').setAttribute('title', 'Documents cannot be changed after verification.');
+                } else {
+                    document.getElementById('manageDocumentsBtn').classList.remove('disabled-button');
+                    document.getElementById('manageDocumentsBtn').removeAttribute('title');
+                }
+            }
+
+            initializeProfile();
+
+            // Populate Buying/Selling History Table
+            function populateHistoryTable() {
+                const tableBody = document.getElementById('historyTableBody');
+                transactionHistory.forEach(transaction => {
+                    const tr = document.createElement('tr');
+
+                    // SI No
+                    const tdSiNo = document.createElement('td');
+                    tdSiNo.setAttribute('data-label', 'SI No');
+                    tdSiNo.innerText = transaction.siNo;
+                    tr.appendChild(tdSiNo);
+
+                    // Product Name
+                    const tdProductName = document.createElement('td');
+                    tdProductName.setAttribute('data-label', 'Product Name');
+                    tdProductName.innerText = transaction.productName;
+                    tr.appendChild(tdProductName);
+
+                    // Order Number
+                    const tdOrderNumber = document.createElement('td');
+                    tdOrderNumber.setAttribute('data-label', 'Order Number');
+                    tdOrderNumber.innerText = transaction.orderNumber;
+                    tr.appendChild(tdOrderNumber);
+
+                    // Transaction Type
+                    const tdTransactionType = document.createElement('td');
+                    tdTransactionType.setAttribute('data-label', 'Transaction Type');
+                    tdTransactionType.innerText = transaction.transactionType;
+                    tr.appendChild(tdTransactionType);
+
+                    // Invoice Number
+                    const tdInvoiceNumber = document.createElement('td');
+                    tdInvoiceNumber.setAttribute('data-label', 'Invoice Number');
+                    tdInvoiceNumber.innerText = transaction.invoiceNumber;
+                    tr.appendChild(tdInvoiceNumber);
+
+                    // Date and Time
+                    const tdDateTime = document.createElement('td');
+                    tdDateTime.setAttribute('data-label', 'Date and Time');
+                    tdDateTime.innerText = transaction.dateTime;
+                    tr.appendChild(tdDateTime);
+
+                    // Status
+                    const tdStatus = document.createElement('td');
+                    tdStatus.setAttribute('data-label', 'Status');
+                    if (transaction.status.toLowerCase() === 'paid') {
+                        tdStatus.innerHTML = '<span class="badge bg-success">Paid</span>';
+                    } else if (transaction.status.toLowerCase() === 'confirmed') {
+                        tdStatus.innerHTML = '<span class="badge bg-primary">Confirmed</span>';
+                    } else {
+                        tdStatus.innerHTML = `<span class="badge bg-secondary">${transaction.status}</span>`;
+                    }
+                    tr.appendChild(tdStatus);
+
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            populateHistoryTable();
+
+            // Handle Manage Documents Button Click
+            const manageDocumentsBtn = document.getElementById('manageDocumentsBtn');
+            manageDocumentsBtn.addEventListener('click', function () {
+                if (!user.isVerified) {
+                    // Preload existing documents
+                    document.getElementById('citizenshipFrontDoc').value = '';
+                    document.getElementById('citizenshipBackDoc').value = '';
+                    document.getElementById('citizenshipFrontPreview').src = user.citizenshipFront;
+                    document.getElementById('citizenshipBackPreview').src = user.citizenshipBack;
+                }
+            });
+
+            // Handle Documents Form Submission
+            const documentsForm = document.getElementById('documentsForm');
+            documentsForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get uploaded files
+                const frontFile = document.getElementById('citizenshipFrontDoc').files[0];
+                const backFile = document.getElementById('citizenshipBackDoc').files[0];
+
+                if (frontFile && backFile) {
+                    // Update document previews
+                    const frontReader = new FileReader();
+                    frontReader.onload = function (e) {
+                        user.citizenshipFront = e.target.result;
+                        document.getElementById('citizenshipFrontPreview').src = e.target.result;
+                    }
+                    frontReader.readAsDataURL(frontFile);
+
+                    const backReader = new FileReader();
+                    backReader.onload = function (e) {
+                        user.citizenshipBack = e.target.result;
+                        document.getElementById('citizenshipBackPreview').src = e.target.result;
+                    }
+                    backReader.readAsDataURL(backFile);
+
+                    alert('Documents updated successfully!');
+                    // Optionally, you can close the modal
+                    const manageDocumentsModal = bootstrap.Modal.getInstance(document.getElementById('manageDocumentsModal'));
+                    manageDocumentsModal.hide();
+                } else {
+                    alert('Please upload both front and back citizenship photos.');
+                }
+            });
+
+            // Handle Edit Account Form Submission
+            const editAccountForm = document.getElementById('editAccountForm');
+            editAccountForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const firstName = document.getElementById('editFirstName').value.trim();
+                const middleName = document.getElementById('editMiddleName').value.trim();
+                const lastName = document.getElementById('editLastName').value.trim();
+                const address = document.getElementById('editAddress').value.trim();
+                const phoneNumber = document.getElementById('editPhoneNumber').value.trim();
+
+                // Basic Validation
+                if (!firstName || !lastName || !address || !phoneNumber) {
+                    alert('Please fill in all the required fields.');
+                    return;
+                }
+
+                // Update user data
+                user.firstName = firstName;
+                user.middleName = middleName;
+                user.lastName = lastName;
+                user.address = address;
+                user.phoneNumber = phoneNumber;
+
+                // Update profile display
+                initializeProfile();
+
+                alert('Account details updated successfully!');
+                // Optionally, you can close the modal
+                const editAccountModal = bootstrap.Modal.getInstance(document.getElementById('editAccountModal'));
+                editAccountModal.hide();
+            });
+
+            // Handle Delete Account Confirmation
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            confirmDeleteBtn.addEventListener('click', function () {
+                // Simulate account deletion
+                alert('Your account has been deleted successfully.');
+                // Redirect to index page (simulate logout)
+                window.location.href = 'index.html';
+            });
+
+            // Image Preview for Citizenship Front
+            const citizenshipFrontInput = document.getElementById('citizenshipFrontDoc');
+            const citizenshipFrontPreview = document.getElementById('citizenshipFrontPreview');
+
+            citizenshipFrontInput.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        citizenshipFrontPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    citizenshipFrontPreview.src = user.citizenshipFront;
+                }
+            });
+
+            // Image Preview for Citizenship Back
+            const citizenshipBackInput = document.getElementById('citizenshipBackDoc');
+            const citizenshipBackPreview = document.getElementById('citizenshipBackPreview');
+
+            citizenshipBackInput.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        citizenshipBackPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    citizenshipBackPreview.src = user.citizenshipBack;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
